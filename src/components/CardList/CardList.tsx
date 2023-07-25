@@ -12,7 +12,7 @@ export function CardList() {
 
   return (
     <ul className="container d-flex flex-wrap align-items-center justify-content-center py-4">
-      { comments.error.length > 0 && <div>{comments.error}</div> }
+      { comments.error.length > 0 && <div>{`Ошибка: ${comments.error}`}</div> }
       {comments.data.map((comment, index) => <Card data={comment} key={comment.id} index={index}/>)}
       { comments.loading && <div>Загрузка...</div> }
     </ul>

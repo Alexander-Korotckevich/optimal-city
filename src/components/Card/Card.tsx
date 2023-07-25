@@ -23,7 +23,7 @@ export function Card({ data, index }: ICardData) {
         <button className="btn btn-primary" onClick={handleClick}>Редактировать</button>
       </div>
 
-      {isFormOpen && <Form setFormOpen={setFormOpen} comment={data.value} commentIndex={index}/>}
+      {isFormOpen && <Form setFormOpen={setFormOpen} comment={data.value} index={index}/>}
     </li>
 
   );

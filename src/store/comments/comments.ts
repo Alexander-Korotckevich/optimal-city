@@ -29,6 +29,12 @@ export interface IEvents {
   '@init': IState;
   'comments/set': ICommentsData;
   'comments/get': ICommentsData;
+  'comments/change': IChangedComment;
+}
+
+export interface IChangedComment {
+  index: number;
+  commentValue: string;
 }
 
 export const initialState: ICommentsData = {
@@ -51,8 +57,6 @@ export const comments: StoreonModule<IState, IEvents> = (store) => {
       },
     })
       .then((response) => {
-        console.log(response.data);
-        
         const data: Array<IComment> = response.data.map(
           (comment: ICommentData) => ({
             name: comment.email,
@@ -69,9 +73,9 @@ export const comments: StoreonModule<IState, IEvents> = (store) => {
       });
   });
 
-  store.on('comments/change', ({ comments }, data) => {
-    comments.data[data.commentIndex] = data.value;
-
-    return comments;
+  store.on('comments/change', ({ comments }, changedData) => {
+    const changedComments = comments;
+    changedComments.data[changedData.index].value = changedData.commentValue;
+    return { comments: { ...comments, ...changedComments } };
   })
 };
